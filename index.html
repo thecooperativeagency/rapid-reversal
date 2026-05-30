@@ -3,6 +3,14 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="REVERSE">
+  
+  <!-- Favicon + iOS Home Screen Icon -->
+  <link rel="icon" type="image/png" href="https://imgen.x.ai/xai-imgen/xai-tmp-imgen-0b46b4ab-554b-4804-bde5-f35453e5a78e.jpeg">
+  <link rel="apple-touch-icon" href="https://imgen.x.ai/xai-imgen/xai-tmp-imgen-0b46b4ab-554b-4804-bde5-f35453e5a78e.jpeg">
+  
   <title>REVERSE • Lance</title>
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Space+Grotesk:wght@500;600&amp;display=swap');
@@ -48,14 +56,24 @@
     }
     
     .logo {
-      font-family: 'Space Grotesk', sans-serif;
-      font-size: 24px;
-      font-weight: 600;
-      letter-spacing: -1px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
     }
     
-    .logo span {
-      color: var(--blue-light);
+    .logo-img {
+      width: 36px;
+      height: 36px;
+      border-radius: 8px;
+      object-fit: cover;
+      border: 1px solid #1E40AF;
+    }
+    
+    .logo-text {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 22px;
+      font-weight: 600;
+      letter-spacing: -1px;
     }
     
     .status {
@@ -309,17 +327,15 @@
       font-size: 12px;
       color: #475569;
     }
-    
-    .rower {
-      color: var(--blue-light);
-      font-weight: 600;
-    }
   </style>
 </head>
 <body>
   <div class="header">
     <div class="nav container">
-      <div class="logo">REVERSE<span>.</span></div>
+      <div class="logo">
+        <img src="https://imgen.x.ai/xai-imgen/xai-tmp-imgen-0b46b4ab-554b-4804-bde5-f35453e5a78e.jpeg" alt="REVERSE" class="logo-img">
+        <div class="logo-text">REVERSE</div>
+      </div>
       <div class="status">
         <div class="status-dot"></div>
         <span>Day 1 • 285 lbs</span>
@@ -328,7 +344,6 @@
   </div>
 
   <div class="container">
-    <!-- Hero -->
     <div class="hero">
       <div class="tag">PRIMAL • 18 MONTH TRANSFORMATION</div>
       <h1>Rapidly<br>Aging<br>Backwards</h1>
@@ -352,7 +367,6 @@
       </div>
     </div>
 
-    <!-- Week Selector -->
     <div class="week" id="week-selector">
       <div class="day-pill active" data-day="monday">M</div>
       <div class="day-pill" data-day="tuesday">T</div>
@@ -363,12 +377,8 @@
       <div class="day-pill" data-day="sunday">S</div>
     </div>
 
-    <!-- Dynamic Day Content -->
-    <div id="day-content">
-      <!-- Populated by JS -->
-    </div>
+    <div id="day-content"></div>
 
-    <!-- Motivation Strip -->
     <div class="motivation-strip">
       <p>“Your body is designed to be strong, lean, and energetic well into your later decades. The modern world just forgot how to feed and move it.”</p>
       <div style="margin-top:8px; font-size:12px; color:#475569;">— Mark Sisson + Robb Wolf</div>
@@ -384,73 +394,77 @@
     const days = {
       monday: {
         title: "Monday",
-        subtitle: "Strength + Steady Row",
+        subtitle: "Strength + Decompression",
         workout: [
-          { icon: "🧘", title: "Mobility Warm-up", detail: "10–15 min hips, thoracic, shoulders" },
-          { icon: "🏋️", title: "Full Body Strength", detail: "3–4 rounds: Goblet squats, Push-ups, Rows, Dead bugs" },
-          { icon: "🚣", title: "Concept2 Steady", detail: "20–25 min conversational pace (RPE 5–6)" },
-          { icon: "🚶", title: "Finish Walk", detail: "10–15 min easy" }
+          { icon: "🤲", title: "Bar Hangs", detail: "3–5 sets of max time" },
+          { icon: "🏋️", title: "Full Body Strength", detail: "Goblet squats, push-ups, rows — 3–4 rounds" },
+          { icon: "🧘", title: "Asian Squat + World’s Greatest Stretch", detail: "2–3 min holds + 3 rounds per side" },
+          { icon: "🚣", title: "Concept2 Zone 2", detail: "20–25 min at 60–80% HR max" }
         ],
-        food: "Protein + non-starchy veg at every meal. Add salt only to taste. Big salad with salmon or steak for lunch.",
+        food: "Lean meat (chicken or turkey) + blueberries. Small side of greens with olive oil.",
         quote: "Move frequently at a slow pace. Lift heavy things. Sprint occasionally. Eat real food.",
         author: "Mark Sisson"
       },
       tuesday: {
         title: "Tuesday",
-        subtitle: "Row Intervals + Core",
+        subtitle: "Intervals + Plyometrics",
         workout: [
-          { icon: "🚣", title: "Concept2 Intervals", detail: "5×500m hard (RPE 7–8), 90–120s easy between" },
-          { icon: "💪", title: "Core Circuit", detail: "3 rounds: Planks, dead bugs, side planks, bird dogs" },
-          { icon: "🚶", title: "Daily Steps", detail: "8–10k steps minimum" }
+          { icon: "🚶", title: "Japanese Interval Walking", detail: "3 min fast / 3 min slow × 4–5 rounds" },
+          { icon: "🦘", title: "Plyometrics", detail: "Box jumps, hops, broad jumps — 4–5 rounds" },
+          { icon: "🤲", title: "Bar Hangs + World’s Greatest Stretch", detail: "Max hangs + 3 rounds stretch" },
+          { icon: "🚣", title: "Concept2 Intervals", detail: "5×500m hard efforts" }
         ],
-        food: "Lower carbs if energy is good. Fatty fish or grass-fed beef for omega-3s. Massive pile of broccoli.",
+        food: "Lean beef or chicken + berries. Light serving of leafy greens.",
         quote: "Inflammation is the root of almost every modern disease. Fix your food first.",
         author: "Robb Wolf"
       },
       wednesday: {
         title: "Wednesday",
-        subtitle: "Active Recovery + Play",
+        subtitle: "Active Recovery",
         workout: [
-          { icon: "🥾", title: "Long Easy Walk", detail: "45–60 min hike or brisk walk" },
-          { icon: "🧘", title: "Optional Mobility", detail: "20 min yoga or light stretching" }
+          { icon: "🚶", title: "Japanese Interval Walking", detail: "Mixed into a long easy walk" },
+          { icon: "🧘", title: "Asian Squat + World’s Greatest Stretch", detail: "Full mobility flow" },
+          { icon: "🤲", title: "Bar Hangs", detail: "Decompression sets" }
         ],
-        food: "Highest veggie day. Consider 12–14 hr overnight fast. Bone broth if hungry.",
+        food: "Lean meat + fruit (blueberries or other berries). Green tea.",
         quote: "The best workout is the one you actually do consistently.",
         author: "Mark Sisson"
       },
       thursday: {
         title: "Thursday",
-        subtitle: "Row + Lower Body",
+        subtitle: "Loaded Carries + Lower Body",
         workout: [
-          { icon: "🚣", title: "Concept2 Session", detail: "30 min steady or 4×1000m moderate" },
-          { icon: "🦵", title: "Lower Body Strength", detail: "Step-ups, glute bridges, calf raises — 3–4 rounds" },
-          { icon: "🚶", title: "Daily Steps", detail: "8–10k steps" }
+          { icon: "🏋️", title: "Loaded Carries", detail: "Farmer carries or suitcase carries — 4–6 rounds" },
+          { icon: "🦵", title: "Lower Body Strength", detail: "Squats, lunges, glute work + Asian Squat" },
+          { icon: "🧘", title: "World’s Greatest Stretch", detail: "3 rounds per side" },
+          { icon: "🚣", title: "Concept2 Zone 2", detail: "30 min at 60–80% HR max" }
         ],
-        food: "Protein-heavy dinner: roasted chicken thighs + greens + olive oil or butter.",
+        food: "Lean meat + avocado + small amount of veg.",
         quote: "You don’t need to train like an athlete to look and feel like one.",
         author: "Robb Wolf"
       },
       friday: {
         title: "Friday",
-        subtitle: "Sprint Row + Upper Body",
+        subtitle: "Power + Sprint Row",
         workout: [
-          { icon: "🚣", title: "Concept2 Sprints", detail: "8–10×250m hard efforts, full recovery" },
-          { icon: "💪", title: "Upper Body", detail: "Push-ups, rows, overhead press — 3 rounds" },
-          { icon: "🚶", title: "Walk the Rest", detail: "Hit your steps" }
+          { icon: "🦘", title: "Plyometrics", detail: "Box jumps, hops — 5 rounds" },
+          { icon: "🤲", title: "Bar Hangs", detail: "Max time sets" },
+          { icon: "🚣", title: "Concept2 Sprints or Zone 2", detail: "Short hard efforts or steady" },
+          { icon: "🚶", title: "Japanese Interval Walking", detail: "Finish with 3–4 rounds" }
         ],
-        food: "Carb refeed only if performance suffered. Otherwise stay primal. Berries as treat.",
+        food: "Lean chicken or turkey + blueberries + Greek yogurt.",
         quote: "Short, intense efforts build resilience. Chronic cardio breaks people.",
         author: "Mark Sisson"
       },
       saturday: {
         title: "Saturday",
-        subtitle: "Long Row or Outdoor",
+        subtitle: "Long Zone 2 + Mobility",
         workout: [
-          { icon: "🚣", title: "Long Row", detail: "40–50 min steady (your favorite)" },
-          { icon: "🥾", title: "Alternative", detail: "Long walk or light ruck" },
-          { icon: "🧘", title: "Mobility", detail: "20 min foam rolling or stretching" }
+          { icon: "🚣", title: "Long Zone 2", detail: "40–50 min rowing or walking at 60–80% HR max" },
+          { icon: "🧘", title: "Full Mobility Flow", detail: "Asian Squat + World’s Greatest Stretch" },
+          { icon: "🤲", title: "Bar Hangs", detail: "Recovery sets" }
         ],
-        food: "Social meal day. Keep it primal. One drink max.",
+        food: "Lean meat + fruit focus. Mix in olive oil and a little veg.",
         quote: "Play is the highest form of movement.",
         author: "Mark Sisson"
       },
@@ -458,10 +472,11 @@
         title: "Sunday",
         subtitle: "Full Rest + Light Movement",
         workout: [
-          { icon: "🚶", title: "Only Walking", detail: "Easy movement only" },
-          { icon: "🧘", title: "Optional Light Row", detail: "15 min easy if you feel like it" }
+          { icon: "🚶", title: "Easy Walk", detail: "Relaxed pace" },
+          { icon: "🤲", title: "Bar Hangs", detail: "Decompression" },
+          { icon: "🧘", title: "Asian Squat + World’s Greatest Stretch", detail: "Light mobility only" }
         ],
-        food: "Meal prep day. Cook 2–3 proteins and chop vegetables for the week. Check sleep & stress.",
+        food: "Lean meat + berries. Green tea. Keep veg light.",
         quote: "Recovery is where the transformation actually happens.",
         author: "Robb Wolf"
       }
@@ -486,7 +501,6 @@
           </div>
       `;
       
-      // Workout section
       html += `<div class="section"><div class="section-label">MOVEMENT</div>`;
       data.workout.forEach(item => {
         html += `
@@ -501,7 +515,6 @@
       });
       html += `</div>`;
       
-      // Food note
       html += `
         <div class="section">
           <div class="section-label">FOOD NOTE</div>
@@ -509,7 +522,6 @@
         </div>
       `;
       
-      // Quote
       html += `
         <div class="section">
           <div class="quote">
@@ -519,7 +531,6 @@
         </div>
       `;
       
-      // CTA
       html += `
         <div onclick="markDone('${dayKey}')" class="cta">
           MARK DAY COMPLETE →
@@ -539,11 +550,10 @@
       });
       
       setTimeout(() => {
-        alert("Logged. Momentum building. We’ll track this properly in the full app tomorrow.");
+        alert("Logged. Momentum building.");
       }, 600);
     }
     
-    // Week selector
     function initWeekSelector() {
       const pills = document.querySelectorAll('.day-pill');
       const today = 'monday';
@@ -578,7 +588,6 @@
     
     window.onload = function() {
       initWeekSelector();
-      console.log('%c[REVERSE] Blue palette applied. Ready for full tracking build tomorrow.', 'color:#475569');
     };
   </script>
 </body>
