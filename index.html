@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>REVERSE • Lance</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Space+Grotesk:wght@500;600&amp;display=swap');
+    
+    :root {
+      --bg: #0A1428;
+      --card: #111827;
+      --blue: #3B82F6;
+      --blue-light: #60A5FA;
+      --blue-dark: #1E40AF;
+      --text: #FFFFFF;
+      --muted: #64748B;
+    }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: 'Inter', system_ui, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+    }
+    
+    .header {
+      position: sticky;
+      top: 0;
+      background: rgba(10,20,40,0.95);
+      backdrop-filter: blur(20px);
+      z-index: 100;
+      padding: 16px 20px;
+      border-bottom: 1px solid #1E3A5F;
+    }
+    
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    
+    .logo {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 24px;
+      font-weight: 600;
+      letter-spacing: -1px;
+    }
+    
+    .logo span {
+      color: var(--blue-light);
+    }
+    
+    .status {
+      font-size: 13px;
+      color: var(--muted);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    
+    .status-dot {
+      width: 8px;
+      height: 8px;
+      background: #22c55e;
+      border-radius: 50%;
+    }
+    
+    .container {
+      max-width: 480px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+    
+    .hero {
+      padding: 40px 0 30px;
+      text-align: center;
+    }
+    
+    .hero h1 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 42px;
+      font-weight: 600;
+      line-height: 1.05;
+      letter-spacing: -2px;
+      margin-bottom: 12px;
+    }
+    
+    .hero .tag {
+      display: inline-block;
+      background: #1E3A5F;
+      color: var(--blue-light);
+      font-size: 13px;
+      font-weight: 600;
+      padding: 6px 14px;
+      border-radius: 999px;
+      margin-bottom: 16px;
+    }
+    
+    .stats {
+      display: flex;
+      gap: 24px;
+      justify-content: center;
+      margin-top: 24px;
+    }
+    
+    .stat {
+      text-align: center;
+    }
+    
+    .stat-number {
+      font-size: 28px;
+      font-weight: 700;
+      line-height: 1;
+    }
+    
+    .stat-label {
+      font-size: 11px;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    
+    .week {
+      display: flex;
+      gap: 8px;
+      margin: 32px 0 24px;
+      overflow-x: auto;
+      padding-bottom: 8px;
+      scrollbar-width: none;
+    }
+    
+    .week::-webkit-scrollbar {
+      display: none;
+    }
+    
+    .day-pill {
+      flex: 1;
+      min-width: 44px;
+      height: 44px;
+      background: #1E3A5F;
+      border: 1px solid #1E40AF;
+      border-radius: 999px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 600;
+      font-size: 15px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      white-space: nowrap;
+    }
+    
+    .day-pill.active {
+      background: var(--blue);
+      color: white;
+      border-color: var(--blue-light);
+      font-weight: 700;
+    }
+    
+    .day-pill.today {
+      box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.3);
+    }
+    
+    .day-card {
+      background: var(--card);
+      border-radius: 20px;
+      padding: 24px;
+      margin-bottom: 24px;
+      border: 1px solid #1E3A5F;
+    }
+    
+    .day-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 20px;
+    }
+    
+    .day-title {
+      font-size: 22px;
+      font-weight: 700;
+    }
+    
+    .day-meta {
+      font-size: 13px;
+      color: var(--muted);
+    }
+    
+    .section {
+      margin-bottom: 24px;
+    }
+    
+    .section:last-child {
+      margin-bottom: 0;
+    }
+    
+    .section-label {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--blue-light);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 8px;
+    }
+    
+    .workout-item {
+      background: #1E3A5F;
+      border-radius: 14px;
+      padding: 16px;
+      margin-bottom: 10px;
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+    }
+    
+    .workout-item:last-child {
+      margin-bottom: 0;
+    }
+    
+    .workout-icon {
+      width: 28px;
+      height: 28px;
+      background: #0F172A;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      flex-shrink: 0;
+    }
+    
+    .workout-text {
+      flex: 1;
+    }
+    
+    .workout-text strong {
+      display: block;
+      font-size: 15px;
+      margin-bottom: 2px;
+    }
+    
+    .workout-text span {
+      font-size: 13px;
+      color: var(--muted);
+    }
+    
+    .food-note {
+      background: #1E3A5F;
+      border-left: 4px solid var(--blue);
+      padding: 14px 16px;
+      border-radius: 0 14px 14px 0;
+      font-size: 14px;
+      color: #ddd;
+    }
+    
+    .quote {
+      font-size: 15px;
+      font-style: italic;
+      color: #94A3B8;
+      padding: 16px 20px;
+      background: #0F172A;
+      border-radius: 16px;
+      border-left: 3px solid var(--blue);
+    }
+    
+    .quote-author {
+      font-size: 12px;
+      color: var(--muted);
+      margin-top: 8px;
+      font-style: normal;
+    }
+    
+    .cta {
+      background: var(--blue);
+      color: white;
+      font-weight: 700;
+      font-size: 15px;
+      padding: 16px 24px;
+      border-radius: 999px;
+      text-align: center;
+      margin: 24px 0;
+      box-shadow: 0 4px 20px rgba(59, 130, 246, 0.4);
+    }
+    
+    .motivation-strip {
+      background: linear-gradient(90deg, #0F172A, #1E3A5F);
+      border-radius: 16px;
+      padding: 20px;
+      margin: 32px 0;
+      text-align: center;
+    }
+    
+    .motivation-strip p {
+      font-size: 15px;
+      color: #CBD5E1;
+    }
+    
+    .footer {
+      text-align: center;
+      padding: 40px 20px 60px;
+      font-size: 12px;
+      color: #475569;
+    }
+    
+    .rower {
+      color: var(--blue-light);
+      font-weight: 600;
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <div class="nav container">
+      <div class="logo">REVERSE<span>.</span></div>
+      <div class="status">
+        <div class="status-dot"></div>
+        <span>Day 1 • 285 lbs</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <!-- Hero -->
+    <div class="hero">
+      <div class="tag">PRIMAL • 18 MONTH TRANSFORMATION</div>
+      <h1>Rapidly<br>Aging<br>Backwards</h1>
+      <p style="color:#64748B; font-size:15px; max-width:260px; margin:0 auto;">
+        70 lbs down. Blood pressure dropping. Mitochondria firing.
+      </p>
+      
+      <div class="stats">
+        <div class="stat">
+          <div class="stat-number">70</div>
+          <div class="stat-label">lbs to lose</div>
+        </div>
+        <div class="stat">
+          <div class="stat-number">18</div>
+          <div class="stat-label">months max</div>
+        </div>
+        <div class="stat">
+          <div class="stat-number">1</div>
+          <div class="stat-label">day at a time</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Week Selector -->
+    <div class="week" id="week-selector">
+      <div class="day-pill active" data-day="monday">M</div>
+      <div class="day-pill" data-day="tuesday">T</div>
+      <div class="day-pill" data-day="wednesday">W</div>
+      <div class="day-pill" data-day="thursday">T</div>
+      <div class="day-pill" data-day="friday">F</div>
+      <div class="day-pill" data-day="saturday">S</div>
+      <div class="day-pill" data-day="sunday">S</div>
+    </div>
+
+    <!-- Dynamic Day Content -->
+    <div id="day-content">
+      <!-- Populated by JS -->
+    </div>
+
+    <!-- Motivation Strip -->
+    <div class="motivation-strip">
+      <p>“Your body is designed to be strong, lean, and energetic well into your later decades. The modern world just forgot how to feed and move it.”</p>
+      <div style="margin-top:8px; font-size:12px; color:#475569;">— Mark Sisson + Robb Wolf</div>
+    </div>
+
+    <div class="footer">
+      Built for Lance • Concept2 ready<br>
+      Tomorrow we add full tracking.
+    </div>
+  </div>
+
+  <script>
+    const days = {
+      monday: {
+        title: "Monday",
+        subtitle: "Strength + Steady Row",
+        workout: [
+          { icon: "🧘", title: "Mobility Warm-up", detail: "10–15 min hips, thoracic, shoulders" },
+          { icon: "🏋️", title: "Full Body Strength", detail: "3–4 rounds: Goblet squats, Push-ups, Rows, Dead bugs" },
+          { icon: "🚣", title: "Concept2 Steady", detail: "20–25 min conversational pace (RPE 5–6)" },
+          { icon: "🚶", title: "Finish Walk", detail: "10–15 min easy" }
+        ],
+        food: "Protein + non-starchy veg at every meal. Add salt only to taste. Big salad with salmon or steak for lunch.",
+        quote: "Move frequently at a slow pace. Lift heavy things. Sprint occasionally. Eat real food.",
+        author: "Mark Sisson"
+      },
+      tuesday: {
+        title: "Tuesday",
+        subtitle: "Row Intervals + Core",
+        workout: [
+          { icon: "🚣", title: "Concept2 Intervals", detail: "5×500m hard (RPE 7–8), 90–120s easy between" },
+          { icon: "💪", title: "Core Circuit", detail: "3 rounds: Planks, dead bugs, side planks, bird dogs" },
+          { icon: "🚶", title: "Daily Steps", detail: "8–10k steps minimum" }
+        ],
+        food: "Lower carbs if energy is good. Fatty fish or grass-fed beef for omega-3s. Massive pile of broccoli.",
+        quote: "Inflammation is the root of almost every modern disease. Fix your food first.",
+        author: "Robb Wolf"
+      },
+      wednesday: {
+        title: "Wednesday",
+        subtitle: "Active Recovery + Play",
+        workout: [
+          { icon: "🥾", title: "Long Easy Walk", detail: "45–60 min hike or brisk walk" },
+          { icon: "🧘", title: "Optional Mobility", detail: "20 min yoga or light stretching" }
+        ],
+        food: "Highest veggie day. Consider 12–14 hr overnight fast. Bone broth if hungry.",
+        quote: "The best workout is the one you actually do consistently.",
+        author: "Mark Sisson"
+      },
+      thursday: {
+        title: "Thursday",
+        subtitle: "Row + Lower Body",
+        workout: [
+          { icon: "🚣", title: "Concept2 Session", detail: "30 min steady or 4×1000m moderate" },
+          { icon: "🦵", title: "Lower Body Strength", detail: "Step-ups, glute bridges, calf raises — 3–4 rounds" },
+          { icon: "🚶", title: "Daily Steps", detail: "8–10k steps" }
+        ],
+        food: "Protein-heavy dinner: roasted chicken thighs + greens + olive oil or butter.",
+        quote: "You don’t need to train like an athlete to look and feel like one.",
+        author: "Robb Wolf"
+      },
+      friday: {
+        title: "Friday",
+        subtitle: "Sprint Row + Upper Body",
+        workout: [
+          { icon: "🚣", title: "Concept2 Sprints", detail: "8–10×250m hard efforts, full recovery" },
+          { icon: "💪", title: "Upper Body", detail: "Push-ups, rows, overhead press — 3 rounds" },
+          { icon: "🚶", title: "Walk the Rest", detail: "Hit your steps" }
+        ],
+        food: "Carb refeed only if performance suffered. Otherwise stay primal. Berries as treat.",
+        quote: "Short, intense efforts build resilience. Chronic cardio breaks people.",
+        author: "Mark Sisson"
+      },
+      saturday: {
+        title: "Saturday",
+        subtitle: "Long Row or Outdoor",
+        workout: [
+          { icon: "🚣", title: "Long Row", detail: "40–50 min steady (your favorite)" },
+          { icon: "🥾", title: "Alternative", detail: "Long walk or light ruck" },
+          { icon: "🧘", title: "Mobility", detail: "20 min foam rolling or stretching" }
+        ],
+        food: "Social meal day. Keep it primal. One drink max.",
+        quote: "Play is the highest form of movement.",
+        author: "Mark Sisson"
+      },
+      sunday: {
+        title: "Sunday",
+        subtitle: "Full Rest + Light Movement",
+        workout: [
+          { icon: "🚶", title: "Only Walking", detail: "Easy movement only" },
+          { icon: "🧘", title: "Optional Light Row", detail: "15 min easy if you feel like it" }
+        ],
+        food: "Meal prep day. Cook 2–3 proteins and chop vegetables for the week. Check sleep & stress.",
+        quote: "Recovery is where the transformation actually happens.",
+        author: "Robb Wolf"
+      }
+    };
+
+    function renderDay(dayKey) {
+      const data = days[dayKey];
+      const container = document.getElementById('day-content');
+      
+      let html = `
+        <div class="day-card">
+          <div class="day-header">
+            <div>
+              <div class="day-title">${data.title}</div>
+              <div class="day-meta">${data.subtitle}</div>
+            </div>
+            <div style="text-align:right;">
+              <div style="background:#1E3A5F; padding:4px 10px; border-radius:999px; font-size:12px; display:inline-block;">
+                ${dayKey === 'monday' ? 'TODAY' : ''}
+              </div>
+            </div>
+          </div>
+      `;
+      
+      // Workout section
+      html += `<div class="section"><div class="section-label">MOVEMENT</div>`;
+      data.workout.forEach(item => {
+        html += `
+          <div class="workout-item">
+            <div class="workout-icon">${item.icon}</div>
+            <div class="workout-text">
+              <strong>${item.title}</strong>
+              <span>${item.detail}</span>
+            </div>
+          </div>
+        `;
+      });
+      html += `</div>`;
+      
+      // Food note
+      html += `
+        <div class="section">
+          <div class="section-label">FOOD NOTE</div>
+          <div class="food-note">${data.food}</div>
+        </div>
+      `;
+      
+      // Quote
+      html += `
+        <div class="section">
+          <div class="quote">
+            “${data.quote}”
+            <div class="quote-author">— ${data.author}</div>
+          </div>
+        </div>
+      `;
+      
+      // CTA
+      html += `
+        <div onclick="markDone('${dayKey}')" class="cta">
+          MARK DAY COMPLETE →
+        </div>
+      `;
+      
+      html += `</div>`;
+      container.innerHTML = html;
+    }
+    
+    function markDone(dayKey) {
+      const btns = document.querySelectorAll('.cta');
+      btns.forEach(b => {
+        b.style.background = '#22c55e';
+        b.style.color = 'white';
+        b.innerHTML = '✓ DONE — GREAT WORK';
+      });
+      
+      setTimeout(() => {
+        alert("Logged. Momentum building. We’ll track this properly in the full app tomorrow.");
+      }, 600);
+    }
+    
+    // Week selector
+    function initWeekSelector() {
+      const pills = document.querySelectorAll('.day-pill');
+      const today = 'monday';
+      
+      pills.forEach(pill => {
+        const day = pill.dataset.day;
+        
+        if (day === today) {
+          pill.classList.add('active', 'today');
+        }
+        
+        pill.addEventListener('click', () => {
+          pills.forEach(p => p.classList.remove('active'));
+          pill.classList.add('active');
+          renderDay(day);
+        });
+      });
+      
+      renderDay(today);
+    }
+    
+    document.addEventListener('keydown', function(e) {
+      if (e.key === '?') {
+        const active = document.querySelector('.day-pill.active');
+        if (active) {
+          const day = active.dataset.day;
+          const next = Object.keys(days)[(Object.keys(days).indexOf(day) + 1) % 7];
+          document.querySelector(`[data-day="${next}"]`).click();
+        }
+      }
+    });
+    
+    window.onload = function() {
+      initWeekSelector();
+      console.log('%c[REVERSE] Blue palette applied. Ready for full tracking build tomorrow.', 'color:#475569');
+    };
+  </script>
+</body>
+</html>
